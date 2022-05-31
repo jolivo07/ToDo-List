@@ -7,10 +7,14 @@
 .h-200px{
     height: 200px !important;
 }
-.h-550px{
-    height: 550px !important;
+.h-600px{
+    height: 600px !important;
 }
 
 .w-40{
     width: 40% !important;
+}
+#select::after{
+    cursor: wait;
+
 }
