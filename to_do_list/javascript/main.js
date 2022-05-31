@@ -49,7 +49,7 @@ var arrayObjectCompleted = []
 const addTask = () => {
     arrayObjectIncomplete.push(newTasks)
     conIncompleteTasks()
-    document.getElementById("table-incomplete").innerHTML += '<tr> <td class="text-center"><button type="button" onclick="check()" class="btn btn-link text-primary"><i class="fa-regular fa-circle-check fs-5"></i></button></td> <td class="text-center"> <a onclick="infoTasks()" href="#">'+newTasks.tasks+'</a></td> <td class="text-center">'+newTasks.createdAt+'</td> <td class="text-center">'+newTasks.finishedAT+'</td> <td class="text-center" ><button type="button" onclick="edit()" class="btn btn-link text-warning"><i class="fa-solid fa-pen-to-square"></i></button> <button type="button" onclick="selectModal()" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button> </td> </tr>'
+    document.getElementById("table-incomplete").innerHTML += '<tr> <td class="text-center"><button type="button" onclick="check()" class="btn btn-link text-primary"><i class="fa-regular fa-circle-check fs-5"></i></button></td> <td class="text-center">'+newTasks.tasks+'</td> <td class="text-center">'+newTasks.createdAt+'</td> <td class="text-center">'+newTasks.finishedAT+'</td> <td class="text-center" ><button type="button" onclick="edit()" class="btn btn-link text-warning"><i class="fa-solid fa-pen-to-square"></i></button> <button type="button" onclick="selectModal()" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button> </td> </tr>'
     document.getElementById("title-tasks").value = ""
     document.getElementById("description-tasks").value = ""
     console.log(arrayObjectIncomplete);
@@ -130,6 +130,7 @@ const edit = () =>{
     findEdit =arrayObjectIncomplete.find(x => x.tasks == pr)
     document.getElementById("edit-title").value = findEdit.tasks
     document.getElementById("edit-description").value = findEdit.description
+    console.log(findEdit);
 }
 
 document.getElementById("edit-tasks-buttom").addEventListener("click", ()=>{
@@ -145,9 +146,7 @@ document.getElementById("edit-tasks-buttom").addEventListener("click", ()=>{
 
 
 const infoTasks = ()=>{
-   let info = event.target.parentNode.parentNode.
 
-   console.log(info);
 }
 
 
