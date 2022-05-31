@@ -1,0 +1,16 @@
+.bg-blue-ligth{
+    background-color: #80E0FF !important;
+}
+.resize{
+    resize: none !important;
+}
+.h-200px{
+    height: 200px !important;
+}
+.h-550px{
+    height: 550px !important;
+}
+
+.w-40{
+    width: 40% !important;
+}
