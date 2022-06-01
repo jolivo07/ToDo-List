@@ -1,6 +1,3 @@
-
-
-
     document.getElementById("nav-tasks-completed").disabled = true;
     document.getElementById("nav-tasks-incomplate").disabled = true;
     document.getElementById("nav-tasks-completed").addEventListener("click", () => {
@@ -21,7 +18,6 @@ document.getElementById("nav-tasks-incomplate").addEventListener("click", () => 
     cont = 0;
 })
 
-
 document.getElementById("add-tasks").addEventListener("click", () => {
     document.getElementById("new-tasks").classList.remove("d-none")
     document.getElementById("table-task-completed").classList.add("d-none")
@@ -31,6 +27,7 @@ document.getElementById("add-tasks").addEventListener("click", () => {
     document.getElementById("footer-preview").classList.add("d-none")
     cont = 0;
 })
+
 var cont = null
 function tasksIncomplete(tasks, description, createdAt, finishedAT) {
     this.tasks = tasks;
@@ -54,15 +51,16 @@ contIncompleteTasks = () => {
 }
 
 document.getElementById("create-tasks").addEventListener("click", () => {
-    let d = new Date();
-    m = d.getMonth() + 1;
-    mes = (m < 10) ? '0' + m : m;
     document.getElementById("new-tasks").classList.add("d-none")
     document.getElementById("table-task-incomplete").classList.remove("d-none")
     var taskEnter = document.getElementById("title-tasks").value
     var descriptionEnter = document.getElementById("description-tasks").value
-    newTasks = new tasksIncomplete(taskEnter, descriptionEnter, d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds() + " --- " + d.getDate() + '/' + mes + '/' + d.getFullYear(), "--")
-    addTask()
+    newTasks = new tasksIncomplete(taskEnter, descriptionEnter, moment().format('llll'), "--")
+    
+   
+        addTask()
+
+    
 
 })
 
@@ -80,10 +78,9 @@ const addTask = () => {
 }
 
 const check = () => {
-    let h = new Date()
     let pr = event.target.parentNode.parentNode.parentNode.firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
     let find = arrayObjectIncomplete.find(x => x.tasks == pr)
-    let newTasksCompleted = new tasksCompleted(find.tasks, find.description, find.createdAt, h.getHours() + ':' + h.getMinutes() + ':' + h.getSeconds() + " --- " + h.getDate() + '/' + mes + '/' + h.getFullYear())
+    let newTasksCompleted = new tasksCompleted(find.tasks, find.description, find.createdAt,moment().format('llll'))
     document.getElementById("table-completed").innerHTML += '<tr> <td class="text-center" ><button type="button" onclick="uncheck()" class="btn btn-link text-danger"><i class="fa-solid fa-circle-minus"></i></button></td> <td id="select" class="text-center text-primary"  onclick="infoTasks(arrayObjectCompleted)">' + newTasksCompleted.tasks + '</td> <td class="text-center">' + newTasksCompleted.createdAt + '</td> <td class="text-center">' + newTasksCompleted.finishedAT + '</td> <td class="text-center"><button type="button" onclick="selectModal(arrayObjectCompleted)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button></td> </tr>'
     contIncompleteTasks();
     arrayObjectCompleted.push(newTasksCompleted);
@@ -135,6 +132,8 @@ const selectModal = (array) => {
 }
 
 const edit = () => {
+    document.getElementById("footer-preview").classList.add("d-none")
+    document.getElementById("footer").classList.add("d-none")
     document.getElementById("edit-tasks").classList.remove("d-none")
     document.getElementById("table-task-incomplete").classList.add("d-none")
     document.getElementById("table-task-completed").classList.add("d-none")
@@ -146,7 +145,7 @@ const edit = () => {
     console.log(findEdit);
 }
 
-const forDelete = (x) => {
+const forDelete = x => {
     for (let index = 0; index < x.length; index++) {
         const element = x[index];
         if (element.tasks == findModal.tasks) {
@@ -156,32 +155,28 @@ const forDelete = (x) => {
 }
 
 document.getElementById("edit-tasks-buttom").addEventListener("click", () => {
+    document.getElementById("footer-preview").classList.remove("d-none")
     document.getElementById("edit-tasks").classList.add("d-none")
     document.getElementById("table-task-incomplete").classList.remove("d-none")
     findEdit.tasks = document.getElementById("edit-title").value;
     findEdit.description = document.getElementById("edit-description").value;
     prss.innerHTML = document.getElementById("edit-title").value
     console.log(arrayObjectIncomplete);
-
-
 })
-
 
 const infoTasks = (array) => {
     let pr = event.target.parentNode.firstChild.nextSibling.nextSibling.nextSibling.innerHTML;
-    let find = array.find(x => x.tasks == pr)
+    let findArray = array.find(x => x.tasks == pr)
     document.getElementById("footer").classList.remove("d-none")
     document.getElementById("footer-preview").classList.add("d-none")
-    document.getElementById("footer-task-name").innerHTML = find.tasks
-    document.getElementById("footer-task-description").innerHTML = find.description
+    document.getElementById("footer-task-name").innerHTML = findArray.tasks
+    document.getElementById("footer-task-description").innerHTML = findArray.description
     if(array == arrayObjectIncomplete){
         document.getElementById("footer-task-date").innerHTML = "Tasks Not Completed"
 
     }else{
-        document.getElementById("footer-task-date").innerHTML = "Was Completed On " + find.finishedAT
+        document.getElementById("footer-task-date").innerHTML = "Was Completed On " + findArray.finishedAT
     }
 
 
 }
-
-
