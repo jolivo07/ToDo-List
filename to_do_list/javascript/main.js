@@ -51,17 +51,16 @@ contIncompleteTasks = () => {
 }
 
 document.getElementById("create-tasks").addEventListener("click", () => {
-    document.getElementById("new-tasks").classList.add("d-none")
-    document.getElementById("table-task-incomplete").classList.remove("d-none")
-    var taskEnter = document.getElementById("title-tasks").value
-    var descriptionEnter = document.getElementById("description-tasks").value
-    newTasks = new tasksIncomplete(taskEnter, descriptionEnter, moment().format('llll'), "--")
-    
-   
+    if(document.getElementById("title-tasks").value.length == 0){
+        alert("Add Title")
+    }else{
+        document.getElementById("new-tasks").classList.add("d-none")
+        document.getElementById("table-task-incomplete").classList.remove("d-none")
+        var taskEnter = document.getElementById("title-tasks").value
+        var descriptionEnter = document.getElementById("description-tasks").value
+        newTasks = new tasksIncomplete(taskEnter, descriptionEnter, moment().format('llll'), "--")
         addTask()
-
-    
-
+    }
 })
 
 const addTask = () => {
