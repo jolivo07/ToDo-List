@@ -26,10 +26,10 @@
                 </div>
                 <div class="col-6 d-flex justify-content-end">
                     <div><button type="button" id="nav-tasks-incomplate"
-                            class="btn btn-link px-5  text-decoration-none text-white fs-3">Incomplete Tasks</button>
+                            class="btn btn-link px-5 change text-decoration-none text-white fs-3">Incomplete Tasks</button>
                     </div>
                     <div><button type="button" id="nav-tasks-completed"
-                            class="btn btn-link px-5  me-4 text-decoration-none text-white fs-3">Completed
+                            class="btn btn-link px-5 change me-4 text-decoration-none text-white fs-3">Completed
                             Tasks</button></div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
     <div class="container-fluid mb-5 ">
         <div class="row">
             <div class="col-12 text-end mb-5  "><button type="button"
-                  id="add-tasks"  class="btn bg-blue-ligth fs-4 py-3 me-5 px-5 text-white">Add Tasks</button></div>
+                  id="add-tasks"  class="btn bg-blue-ligth fs-4 py-3 me-5 px-5 text-white">Add Task</button></div>
         </div>
     </div>
 
@@ -56,13 +56,12 @@
                     </tr>
                 </thead>
                 <tbody id="table-completed">
-
+                    <tr id="not-completed-tasks" class="d-none">
+                        <td class="text-center text-primary fs-5" colspan="5">There are no completed tasks</td> 
+                      </tr>
                 </tbody>
             </table>
         </div>
-
-
-
 
         <div id="table-task-incomplete" class="container-fluid px-5 d-none ">
             <table class="table bg-white shadow " >
@@ -77,14 +76,16 @@
                     </tr>
                 </thead>
                 <tbody id="table-incomplete">
-
+                    <tr id="not-incomplete-tasks" class="d-none">
+                        <td class="text-center text-primary fs-5" colspan="5">There are no incomplete tasks</td> 
+                      </tr>
 
                 </tbody>
             </table>
         </div>
         <div id="new-tasks" class="container bg-white shadow p-4  d-none">
             <div class="row">
-                <div class="col-12 fs-2 fw-bolder mb-5">New Tasks</div>
+                <div class="col-12 fs-2 fw-bolder mb-5">New Task</div>
                 <div class="col-12 mb-5">
                     <label for="exampleFormControlInput1" class="form-label">Title Task</label>
                     <input type="text" class="form-control" id="title-tasks" placeholder="Title Task">
@@ -95,7 +96,7 @@
                 </div>
 
                 <div class="col-12 d-flex justify-content-end ">
-                    <button type="button" class="btn bg-light fs-4">Cancel</button>
+                    <button id="cancel-new" type="button" class="btn bg-light fs-4">Cancel</button>
                     <button id="create-tasks" type="button" class="btn bg-blue-ligth fs-4 mx-5 text-white px-4">Create Task</button>
                 </div>
 
@@ -103,12 +104,12 @@
         </div>
 
 
-
+        
 
 
         <div id="edit-tasks" class="container bg-white shadow p-4 d-none">
             <div class="row">
-                <div class="col-12 fs-2 fw-bolder mb-5">Edit Tasks</div>
+                <div class="col-12 fs-2 fw-bolder mb-5">Edit Task</div>
                 <div class="col-12 mb-5">
                     <label for="exampleFormControlInput1" class="form-label">Title Task</label>
                     <input id="edit-title" type="text" class="form-control" placeholder="Title Task">
@@ -119,7 +120,7 @@
                 </div>
 
                 <div class="col-12 d-flex justify-content-end ">
-                    <button type="button" class="btn bg-light fs-4">Cancel</button>
+                    <button id="cancel-edit" type="button" class="btn bg-light fs-4">Cancel</button>
                     <button id="edit-tasks-buttom" type="button" class="btn bg-blue-ligth fs-4 mx-5 text-white px-4">Edit Task</button>
                 </div>
 
@@ -131,7 +132,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Delete Tasks</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Task</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

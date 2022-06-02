@@ -14,3 +14,10 @@
 .w-40{
     width: 40% !important;
 }
+a:hover{
+    font-weight: bolder;
+    text-decoration: underline;
+}
+a:active{
+text-decoration: underline !important;
+}
