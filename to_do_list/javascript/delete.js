@@ -14,13 +14,18 @@ const deleteRowTable = (array) => {
 }
 function deleteTask(){
     deleteListModal.remove()
-    if (cont == null) {
+    if (tableTaskIncomplete.classList.contains("d-none")) {
         travelArrayDeleteSplice(arrayObjectCompleted)
     } else (
         travelArrayDeleteSplice(arrayObjectIncomplete)
     )
     loadNumberOfIncompleteTask()
     showNotTaskInTable()
+
+    console.log(arrayObjectCompleted);
+    console.log(arrayObjectIncomplete);
+
+
 }
 
 const travelArrayDeleteSplice = x => {
@@ -38,4 +43,4 @@ const showModalDelete = (array) => {
     findModal = array.find(x => x.name == findPr)
 }
 
-deleteTaskButton.addEventListener("click", deleteTask)
+btnModalDeleteTask.addEventListener("click", deleteTask)

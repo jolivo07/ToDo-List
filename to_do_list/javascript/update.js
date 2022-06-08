@@ -1,6 +1,6 @@
 const edit = () => {
     hide()
-    show([editTask])
+    show([formEditTask])
     let pr = event.target
     let findPr = pr.closest(" tr ").querySelector(".text-decoration-none").innerHTML
     findTasks = pr.closest(" tr ").querySelector(".text-decoration-none")
@@ -14,7 +14,7 @@ function showEditTaskForm(){
         alert("Add Title Task")
     } else {
         hide()
-        show([addTaskButton,footerSelectTaskPreview,tableTaskIncomplete])
+        show([btnAddTask,footerSelectTaskPreview,tableTaskIncomplete])
         findEdit.name = document.getElementById("edit-title").value;
         findEdit.description = document.getElementById("edit-description").value;
         findTasks.innerHTML = document.getElementById("edit-title").value
@@ -24,11 +24,11 @@ function showEditTaskForm(){
 
 function hideEditTaskForm(){
     hide()
-    show([addTaskButton,tableTaskIncomplete])
-    incompleteTaskNav.classList.add("fw-bolder", "text-decoration-underline")
-    completeTaskNav.classList.remove("fw-bolder", "text-decoration-underline")
+    show([btnAddTask,tableTaskIncomplete])
+    navIncompleteTask.classList.add("fw-bolder", "text-decoration-underline")
+    navCompleteTask.classList.remove("fw-bolder", "text-decoration-underline")
 }
 
-cancelEditButton.addEventListener("click", hideEditTaskForm)
- editTaskButtom.addEventListener("click", showEditTaskForm)
+ btnCancelEdit.addEventListener("click", hideEditTaskForm)
+ btnEditTask.addEventListener("click", showEditTaskForm)
 
