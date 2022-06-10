@@ -1,46 +1,44 @@
-const deleteRowTable = (array) => {
-    let pr = event.target
-    pr.closest(" tr ").remove()
-    let findPr = pr.closest(" tr ").querySelector(".text-decoration-none").innerHTML
-    let findModal = array.find(x => x.name == findPr)
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        if (element.name == findModal.name) {
-            array.splice(index, 1)
-        }
+const deleteRowTable = (row) => {
+    row.remove()
+    let taskName = row.querySelector(".text-decoration-none").innerHTML
+    
+    if (tableTaskIncomplete.classList.contains("d-none")) {
+        let task = arrayObjectCompleted.find(x => x.name == taskName)
+        travelArrayDeleteSplice(arrayObjectCompleted,task.name)
+    } else {
+        let task = arrayObjectIncomplete.find(x => x.name == taskName)
+        travelArrayDeleteSplice(arrayObjectIncomplete,task.name)
     }
     loadNumberOfIncompleteTask()
     showNotTaskInTable()
 }
+
 function deleteTask(){
-    deleteListModal.remove()
+    document.getElementById("tr-"+ btnModalDeleteTask.dataset.task).remove()
     if (tableTaskIncomplete.classList.contains("d-none")) {
-        travelArrayDeleteSplice(arrayObjectCompleted)
-    } else (
-        travelArrayDeleteSplice(arrayObjectIncomplete)
-    )
+        travelArrayDeleteSplice(arrayObjectCompleted, btnModalDeleteTask.dataset.task)
+    } else {
+        travelArrayDeleteSplice(arrayObjectIncomplete, btnModalDeleteTask.dataset.task)
+    }
     loadNumberOfIncompleteTask()
     showNotTaskInTable()
-
     console.log(arrayObjectCompleted);
     console.log(arrayObjectIncomplete);
-
-
 }
 
-const travelArrayDeleteSplice = x => {
+const travelArrayDeleteSplice = (x,task) => {
     for (let index = 0; index < x.length; index++) {
         const element = x[index];
-        if (element.name == findModal.name) {
+        if (element.name == task) {
             x.splice(index, 1)
         }
     }
 }
-const showModalDelete = (array) => {
-    let pr = event.target
-    deleteListModal = pr.closest("tr")
-    let findPr = pr.closest(" tr ").querySelector(".text-decoration-none").innerHTML
-    findModal = array.find(x => x.name == findPr)
+
+const showModalDelete = (event ,array) => {
+     let taskName = event.closest("tr").closest(" tr ").querySelector(".text-decoration-none").innerHTML
+     let task = array.find(x => x.name == taskName)
+     btnModalDeleteTask.dataset.task =task.name
 }
 
 btnModalDeleteTask.addEventListener("click", deleteTask)

@@ -30,7 +30,6 @@ function hide(){
     });
 }
 
-
 function showCompleteTaskList(){
     navIncompleteTask.classList.remove("fw-bolder", "text-decoration-underline")
     navCompleteTask.classList.add("fw-bolder", "text-decoration-underline")
@@ -48,7 +47,7 @@ function showIncompleteTaskList(){
 navIncompleteTask.addEventListener("click", showIncompleteTaskList)
 navCompleteTask.addEventListener("click",showCompleteTaskList)
 
-function task(name, description, createdAt, finishedAt) {
+function Task(name, description, createdAt, finishedAt) {
     this.name = name
     this.description = description
     this.createdAt = createdAt
@@ -63,20 +62,23 @@ loadNumberOfIncompleteTask = () => {
 }
 
 
-const showInfoTask = (array) => {
-    let pr = event.target
-    let finPr = pr.closest("a").innerHTML
-    let findArray = array.find(x => x.name == finPr)
+const showInfoTask = (event,array) => {
+    let hiperText = event
+    let taskRow = hiperText.closest("a").innerHTML
+    let task = array.find(x => x.name == taskRow)
     hide()
-    show([footerInfoTask])
-    document.getElementById("footer-task-name").innerHTML = findArray.name
-    document.getElementById("footer-task-description").innerHTML = findArray.description
+    document.getElementById("footer-task-name").innerHTML = task.name
+    document.getElementById("footer-task-description").innerHTML = task.description
     if (array == arrayObjectIncomplete) {
         document.getElementById("footer-task-date").innerHTML = "Tasks Not Completed"
+        show([footerInfoTask,tableTaskIncomplete])
 
     } else {
-        document.getElementById("footer-task-date").innerHTML = "Was Completed On " + findArray.finishedAt
+        document.getElementById("footer-task-date").innerHTML = "Was Completed On " + task.finishedAt
+        show([footerInfoTask,tableTaskComplete])
     }
+    
+    show([footerInfoTask])
 }
 
 var showNotTaskInTable = () => {
@@ -93,27 +95,36 @@ var showNotTaskInTable = () => {
     }
 }
 
-const uncompleteTaskAddtableIncompleted = () => {
-    let pr = event.target
-    let findPr = pr.closest(" tr ").querySelector(".text-decoration-none").innerHTML
-    let find = arrayObjectCompleted.find(x => x.name == findPr)
-    TasksCompletedToIncomleted = new task(find.name, find.description, find.createdAt, "--")
-    document.getElementById("table-tbody-incomplete").innerHTML += '<tr> <td class="text-center"><button type="button" onclick="completeTaskAddTableCompleted()" class="btn btn-link text-primary"><i class="fa-regular fa-circle-check fs-5"></i></button></td> <td class="text-center text-primary "> <a onclick="showInfoTask(arrayObjectIncomplete)" class="text-decoration-none" href="#">' + find.name + '</a></td> <td class="text-center">' + find.createdAt + '</td> <td class="text-center">' + TasksCompletedToIncomleted.finishedAt + '</td> <td class="text-center" ><button type="button" onclick="edit()" class="btn btn-link text-dark"><i class="fa-solid fa-pen-to-square"></i></button> <button type="button" onclick="showModalDelete(arrayObjectIncomplete)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button> </td> </tr>'
-    arrayObjectIncomplete.push(TasksCompletedToIncomleted)
-    console.log(arrayObjectCompleted)
-    deleteRowTable(arrayObjectCompleted)
+const uncompleteTaskAddtableIncompleted = (event) => {
+    let btnUncheck = event
+    let taskRow = btnUncheck.closest(" tr ")
+    let taskName = taskRow.querySelector(".text-decoration-none").innerHTML
+    let task = arrayObjectCompleted.find(x => x.name == taskName)
+    task.finishedAt="--"
+    document.getElementById("table-tbody-incomplete").innerHTML += '<tr id="tr-' + task.name + '"> <td class="text-center"><button type="button" onclick="completeTaskAddTableCompleted(this)" class="btn btn-link text-primary"><i class="fa-regular fa-circle-check fs-5"></i></button></td> <td class="text-center text-primary "> <a onclick="showInfoTask(this, arrayObjectIncomplete)" class="text-decoration-none" href="#">' + task.name + '</a></td> <td class="text-center">' + task.createdAt + '</td> <td class="text-center">' + task.finishedAt + '</td> <td class="text-center" ><button type="button" onclick="edit(this)" class="btn btn-link text-dark"><i class="fa-solid fa-pen-to-square"></i></button> <button type="button" onclick="showModalDelete(this,arrayObjectIncomplete)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button> </td> </tr>'
+    arrayObjectIncomplete.push(task)
+    deleteRowTable(taskRow)
     loadNumberOfIncompleteTask();
     showNotTaskInTable()
+    console.log(arrayObjectCompleted);
+    console.log(arrayObjectIncomplete);
+    
 }
 
-const completeTaskAddTableCompleted = () => {
-    let pr = event.target
-    let findPr =pr.closest(" tr ").querySelector(".text-decoration-none").innerHTML
-    let find = arrayObjectIncomplete.find(x => x.name == findPr)
-    let newTasksCompleted = new task(find.name, find.description, find.createdAt, moment().format('llll'))
-    document.getElementById("table-tbody-completed").innerHTML += '<tr> <td class="text-center" ><button type="button" onclick="uncompleteTaskAddtableIncompleted()" class="btn btn-link text-danger"><i class="fa-solid fa-circle-minus"></i></button></td> <td id="select" class="text-center text-primary "> <a onclick="showInfoTask(arrayObjectCompleted)" class="text-decoration-none" href="#">' + newTasksCompleted.name + '</a></td> <td class="text-center">' + newTasksCompleted.createdAt + '</td> <td class="text-center">' + newTasksCompleted.finishedAt + '</td> <td class="text-center"><button type="button" onclick="showModalDelete(arrayObjectCompleted)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button></td> </tr>'
+const completeTaskAddTableCompleted = (event) => {
+    let taskRow = event.closest(" tr ")
+    let taskName =taskRow.querySelector(".text-decoration-none").innerHTML
+    let task = arrayObjectIncomplete.find(x => x.name == taskName)
+    task.finishedAt = moment().format('llll')
+    document.getElementById("table-tbody-completed").innerHTML += '<tr id="tr-' + task.name + '"> <td class="text-center" ><button type="button" onclick="uncompleteTaskAddtableIncompleted(this)" class="btn btn-link text-danger"><i class="fa-solid fa-circle-minus"></i></button></td> <td id="select" class="text-center text-primary "> <a onclick="showInfoTask(this,arrayObjectCompleted)" class="text-decoration-none" href="#">' + task.name + '</a></td> <td class="text-center">' + task.createdAt + '</td> <td class="text-center">' + task.finishedAt + '</td> <td class="text-center"><button type="button" onclick="showModalDelete(this,arrayObjectCompleted)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-link text-danger"><i class="fa-solid fa-trash"></i></button></td> </tr>'
+    arrayObjectCompleted.push(task);
+    deleteRowTable(taskRow);
     loadNumberOfIncompleteTask();
-    arrayObjectCompleted.push(newTasksCompleted);
-    deleteRowTable(arrayObjectIncomplete);
     showNotTaskInTable()
+    console.log(arrayObjectCompleted);
+    console.log(arrayObjectIncomplete);
 }
+
+
+
+
